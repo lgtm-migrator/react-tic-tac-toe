@@ -69,6 +69,13 @@ class Game extends React.Component {
     });
   }
 
+  changeSort() {
+    this.setState({
+      sortMoveAsc: !this.state.sortMoveAsc
+    })
+    console.log(this.state.sortMoveAsc);
+  }
+
   handleClick(i) {
     // Get the history from start to stepNumber
     // stepNumber can be the latest history or older history
@@ -109,6 +116,12 @@ class Game extends React.Component {
     const winnerInfo = calculateWinner(current.squares);
     const winner = winnerInfo ? winnerInfo['pattern'] : winnerInfo;
     const sortOrderAsc = this.state.sortMoveAsc;
+    let sortOrder;
+    if(sortOrderAsc) {
+      sortOrder = "Ascending"
+    } else {
+      sortOrder = "Descending";
+    }
 
     let move = history.map((step, move) => {
       let movesHistory = step.moves;
@@ -150,6 +163,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
+          <button onClick={()=> this.changeSort()}>Sort {sortOrder}</button>
           <ol>{move}</ol>
         </div>
       </div>
